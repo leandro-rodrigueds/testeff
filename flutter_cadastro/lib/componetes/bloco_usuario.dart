@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_cadastro/modelos/usuario.dart';
+import 'package:flutter_cadastro/provider/metodos_usuario.dart';
 import 'package:flutter_cadastro/telas/cadastroUsuarios.dart';
+import 'package:provider/provider.dart';
 
 import '../rotas/rotas_app.dart';
 
@@ -32,7 +34,9 @@ class BlocoUsuario extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.delete),
               color: Colors.redAccent,
-              onPressed: () {},
+              onPressed: () {
+                Provider.of <MetodosUsuarios> (context, listen: false).remove(usuario);
+              },
             ),
           ],
         ),
