@@ -3,6 +3,7 @@ import 'package:flutter_cadastro/provider/metodos_usuario.dart';
 import 'package:flutter_cadastro/rotas/rotas_app.dart';
 import 'package:flutter_cadastro/telas/cadastroUsuarios.dart';
 import 'package:flutter_cadastro/telas/formulario.dart';
+import 'package:flutter_cadastro/telas/EstadoCidade.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           RotasApp.HOME:(_) => CadastroUsuarios(),
-          RotasApp.FORMULARIO:(_) => Formulario(),
+          RotasApp.ESTCID:(_) => EstadoCidade(),
+          RotasApp.FORMULARIO:(_) => Formulario()
         },
         
       ),
