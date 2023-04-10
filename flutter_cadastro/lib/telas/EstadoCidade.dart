@@ -50,11 +50,6 @@ class _EstadoCidadeState extends State<EstadoCidade> {
       body: Container(
         child: Stack(
           children: <Widget>[
-            Image.asset(
-              'assets/images/mapa.png',
-              width: double.infinity,
-              height: double.infinity,
-            ),
             Center(
               child: Column(
                 children: <Widget>[

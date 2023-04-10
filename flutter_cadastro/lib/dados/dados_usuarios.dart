@@ -5,4 +5,8 @@ const DADOS_USUARIOS ={
     nomeAluno: 'Leandro Rodrigues Marques', 
     nomeMae: 'Elizabete Rodrigues de Magalhões'
     ),
+  '2': const Usuario(
+    nomeAluno: 'Leandro Rodrigues Marques', 
+    nomeMae: 'Elizabete Rodrigues de Magalhões'
+    ),
 };

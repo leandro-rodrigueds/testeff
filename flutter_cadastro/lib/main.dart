@@ -24,8 +24,8 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         routes: {
-          RotasApp.HOME:(_) => CadastroUsuarios(),
-          RotasApp.ESTCID:(_) => EstadoCidade(),
+          RotasApp.HOME:(_) => EstadoCidade(),
+          RotasApp.ESTCID:(_) => CadastroUsuarios(),
           RotasApp.FORMULARIO:(_) => Formulario()
         },
         
