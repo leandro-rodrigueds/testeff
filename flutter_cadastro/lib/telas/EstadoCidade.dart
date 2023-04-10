@@ -1,51 +1,44 @@
 import 'package:flutter/material.dart';
 
-class EstadoCidade extends StatelessWidget {
-  final List<String> estados = [
-    'Minas Gerais',
-    'São Paulo',
-    'Rio de Janeiro',
-    'Bahia',
-    'Paraná',
-    'Santa Catarina',
-    'Rio Grande do Sul',
-    'Ceará',
-    'Pernambuco',
-    'Goiás',
-    'Amazonas',
-    'Pará',
-    'Maranhão',
-    'Roraima',
-    'Rondônia',
-    'Acre',
-    'Amapá',
-    'Tocantins',
-    'Distrito Federal',
-    'escolha'
-  ];
+class EstadoCidade extends StatefulWidget {
+  @override
+  _EstadoCidadeState createState() => _EstadoCidadeState();
+}
 
-  final List<String> cidades = [
-    'Belo Horizonte',
-    'São Paulo',
-    'Rio de Janeiro',
-    'Salvador',
-    'Curitiba',
-    'Florianópolis',
-    'Porto Alegre',
-    'Fortaleza',
-    'Recife',
-    'Goiânia',
-    'Manaus',
-    'Belém',
-    'São Luís',
-    'Boa Vista',
-    'Porto Velho',
-    'Rio Branco',
-    'Macapá',
-    'Palmas',
-    'Brasília',
-    'escolha'
-  ];
+class _EstadoCidadeState extends State<EstadoCidade> {
+  String? estadoSelecionado;
+  String? cidadeSelecionada;
+
+  final List<String> estados =
+  [ 'Minas Gerais',    'São Paulo',    'Rio de Janeiro',
+    'Bahia',      'Paraná',    'Santa Catarina',    'Rio Grande do Sul',
+    'Ceará',      'Pernambuco',    'Goiás',    'Amazonas',    'Pará',    
+    'Maranhão',      'Roraima',    'Rondônia',    'Acre',    'Amapá',    
+    'Tocantins',      'Distrito Federal',    'escolha'  ];
+
+  Map<String, List<String>> cidadesPorEstado = {
+    'Minas Gerais': ['Belo Horizonte'],
+    'São Paulo': ['São Paulo'],
+    'Rio de Janeiro': ['Rio de Janeiro'],
+    'Bahia': ['Salvador'],
+    'Paraná': ['Curitiba'],
+    'Santa Catarina': ['Florianópolis'],
+    'Rio Grande do Sul': ['Porto Alegre'],
+    'Ceará': ['Fortaleza'],
+    'Pernambuco': ['Recife'],
+    'Goiás': ['Goiânia'],
+    'Amazonas': ['Manaus'],
+    'Pará': ['Belém'],
+    'Maranhão': ['São Luís'],
+    'Roraima': ['Boa Vista'],
+    'Rondônia': ['Porto Velho'],
+    'Acre': ['Rio Branco'],
+    'Amapá': ['Macapá'],
+    'Tocantins': ['Palmas'],
+    'Distrito Federal': ['Brasília'],
+  };
+
+  List<String> cidades = [];
 
   @override
   Widget build(BuildContext context) {
@@ -78,15 +71,22 @@ class EstadoCidade extends StatelessWidget {
                           return AlertDialog(
                             title: Text('Escolha o ESTADO'),
                             content: DropdownButton<String>(
-                              value: 'escolha',
-                              onChanged: (String? value) {},
+                              value: estadoSelecionado,
+                              onChanged: (String? value) {
+                                setState(() {
+                                  estadoSelecionado = value;
+                                  cidades = cidadesPorEstado[value!]!;
+                                  cidadeSelecionada = null;
+                                });
+                              },
                               items: estados.map<DropdownMenuItem<String>>(
-                                  (String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
+                                (String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                },
+                              ).toList(),
                             ),
                           );
                         },
@@ -95,38 +95,45 @@ class EstadoCidade extends StatelessWidget {
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Color.fromARGB(255, 134, 0, 0),
-                    ),
-                    child: Text('Escolher cidade'),
-                    onPressed: () {
-                      // mostrar diálogo para escolher cidade
+                      primary:Color.fromARGB(255, 134, 0, 0),
+                      ),
+                      child: Text('Escolher cidade'),
+                      onPressed: () {
+                      // mostra diálogo para escolher cidade 
                       showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
+                        context: context, 
+                        builder: (BuildContext context) { 
                           return AlertDialog(
                             title: Text('Escolha a CIDADE'),
-                            content: DropdownButton<String>(
-                              value: 'escolha',
-                              onChanged: (String? value) {},
-                              items: cidades.map<DropdownMenuItem<String>>(
-                                  (String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+                            content: DropdownButton <String> ( 
+                              value: cidadeSelecionada, 
+                              onChanged: (String? value) { 
+                                setState(() {
+                                 cidadeSelecionada = value;
+                                });
+                                },
+                                items: cidades .map<DropdownMenuItem <String> >(
+                                  (String value) { 
+                                    return DropdownMenuItem<String>(
+                                    value: value, 
+                                    child: Text(value), 
+                                    ); 
+                                  }, 
+                                ).toList(), 
+                              ), 
+                            ); 
+                          }, 
+                        ); 
+                      }, 
+                    ), 
+                    Text('Estado: $estadoSelecionado'), 
+                    Text('Cidade: $cidadeSelecionada'), 
+                    ], 
+                  ), 
+                ), 
+              ], 
+            ), 
+          ), 
+        ); 
+      } 
+    }
