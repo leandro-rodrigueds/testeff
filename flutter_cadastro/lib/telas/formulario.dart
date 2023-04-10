@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_cadastro/modelos/usuario.dart';
+import 'package:flutter_cadastro/provider/metodos_usuario.dart';
+import 'package:provider/provider.dart';
 
 class Formulario extends StatelessWidget {
   final _form = GlobalKey<FormState>();
-  //final Map <String, String>
+  final Map<String, String> _iformacaoUsuarios = {};
 
+  TextEditingController _inputnomeAluno =TextEditingController();
+  TextEditingController _inputnomeMae =TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,6 +24,11 @@ class Formulario extends StatelessWidget {
 
               if (isValido) {
                 _form.currentState?.save();
+
+                // Provider.of<MetodosUsuarios>(context, listen: false).put(Usuario(
+                //   nomeAluno: _iformacaoUsuarios ['nomeAluno'], 
+                //   nomeMae: _iformacaoUsuarios['nomeMae'])
+                // );
                 Navigator.of(context).pop();
               }
             },
@@ -32,6 +42,7 @@ class Formulario extends StatelessWidget {
           child: Column(
             children: <Widget>[
               TextFormField(
+                controller: _inputnomeAluno,
                 decoration: InputDecoration(labelText: 'Nome do aluno:'),
                 validator: (value) {
                   if(value == null || value.isEmpty){
@@ -42,12 +53,12 @@ class Formulario extends StatelessWidget {
                   }
                   return null;
                 },
-                onSaved: (value) {
-                  print(value);
-                },
+                onSaved: (value) => _iformacaoUsuarios['nomeAluno'],
               ),
               TextFormField(
+                controller: _inputnomeMae,
                 decoration: InputDecoration(labelText: 'Nome da Mãe:'),
+                onSaved: (value) => _iformacaoUsuarios['nomeMae'],
               ),
             ],
           ),
