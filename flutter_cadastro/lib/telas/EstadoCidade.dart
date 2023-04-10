@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../rotas/rotas_app.dart';
+
 class EstadoCidade extends StatefulWidget {
   @override
   _EstadoCidadeState createState() => _EstadoCidadeState();
@@ -9,12 +11,28 @@ class _EstadoCidadeState extends State<EstadoCidade> {
   String? estadoSelecionado;
   String? cidadeSelecionada;
 
-  final List<String> estados =
-  [ 'Minas Gerais',    'São Paulo',    'Rio de Janeiro',
-    'Bahia',      'Paraná',    'Santa Catarina',    'Rio Grande do Sul',
-    'Ceará',      'Pernambuco',    'Goiás',    'Amazonas',    'Pará',    
-    'Maranhão',      'Roraima',    'Rondônia',    'Acre',    'Amapá',    
-    'Tocantins',      'Distrito Federal',    'escolha'  ];
+  final List<String> estados = [
+    'Minas Gerais',
+    'São Paulo',
+    'Rio de Janeiro',
+    'Bahia',
+    'Paraná',
+    'Santa Catarina',
+    'Rio Grande do Sul',
+    'Ceará',
+    'Pernambuco',
+    'Goiás',
+    'Amazonas',
+    'Pará',
+    'Maranhão',
+    'Roraima',
+    'Rondônia',
+    'Acre',
+    'Amapá',
+    'Tocantins',
+    'Distrito Federal',
+    'escolha'
+  ];
 
   Map<String, List<String>> cidadesPorEstado = {
     'Minas Gerais': ['Belo Horizonte'],
@@ -90,45 +108,52 @@ class _EstadoCidadeState extends State<EstadoCidade> {
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary:Color.fromARGB(255, 134, 0, 0),
-                      ),
-                      child: Text('Escolher cidade'),
-                      onPressed: () {
-                      // mostra diálogo para escolher cidade 
+                      primary: Color.fromARGB(255, 134, 0, 0),
+                    ),
+                    child: Text('Escolher cidade'),
+                    onPressed: () {
+                      // mostra diálogo para escolher cidade
                       showDialog(
-                        context: context, 
-                        builder: (BuildContext context) { 
+                        context: context,
+                        builder: (BuildContext context) {
                           return AlertDialog(
                             title: Text('Escolha a CIDADE'),
-                            content: DropdownButton <String> ( 
-                              value: cidadeSelecionada, 
-                              onChanged: (String? value) { 
+                            content: DropdownButton<String>(
+                              value: cidadeSelecionada,
+                              onChanged: (String? value) {
                                 setState(() {
-                                 cidadeSelecionada = value;
+                                  cidadeSelecionada = value;
                                 });
+                              },
+                              items: cidades.map<DropdownMenuItem<String>>(
+                                (String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
                                 },
-                                items: cidades .map<DropdownMenuItem <String> >(
-                                  (String value) { 
-                                    return DropdownMenuItem<String>(
-                                    value: value, 
-                                    child: Text(value), 
-                                    ); 
-                                  }, 
-                                ).toList(), 
-                              ), 
-                            ); 
-                          }, 
-                        ); 
-                      }, 
-                    ), 
-                    Text('Estado: $estadoSelecionado'), 
-                    Text('Cidade: $cidadeSelecionada'), 
-                    ], 
-                  ), 
-                ), 
-              ], 
-            ), 
-          ), 
-        ); 
-      } 
-    }
+                              ).toList(),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                  IconButton(
+                    color: Colors.grey,
+                    icon: Icon(Icons.arrow_circle_right_outlined),
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(RotasApp.ESTCID);
+                    },
+                  ),
+                  Text('Estado: $estadoSelecionado'),
+                  Text('Cidade: $cidadeSelecionada'),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
