@@ -11,12 +11,12 @@ class CadastroUsuarios extends StatelessWidget {
   Widget build(BuildContext context) {
     final MetodosUsuarios usuarios = Provider.of<MetodosUsuarios>(context);
 
-    const _currentindex = 0;
+    const _currentindex = 2;
 
     void _onItemTapped(int index) {
-      if (_currentindex != 0) {
-        if (index == 0) {
-          Navigator.of(context).pushNamed(RotasApp.ESTCID);
+      if (_currentindex != 2) {
+        if (index == 2) {
+          Navigator.of(context).pushNamed(RotasApp.CONFIG);
         }
       }
 
@@ -24,27 +24,17 @@ class CadastroUsuarios extends StatelessWidget {
         Navigator.of(context).pushNamed(RotasApp.FORMULARIO);
       }
 
-      if (index == 2) {
-        Navigator.of(context).pushNamed(RotasApp.CONFIG);
+      if (index == 0) {
+        Navigator.of(context).pushNamed(RotasApp.ESTCID);
       }
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cadastro de Alunos'),
-        actions: <Widget>[
-          IconButton(
-            color: Colors.white,
-            icon: Icon(Icons.add),
-            onPressed: () {
-              Navigator.of(context).pushNamed(RotasApp.FORMULARIO);
-            },
-          ),
-        ],
+        title: Text('Configurações'),
       ),
-      body: ListView.builder(
-        itemCount: usuarios.count,
-        itemBuilder: (ctx, i) => BlocoUsuario(usuarios.byIndex(i)),
+      body: Center(
+        child: Text('Home'),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

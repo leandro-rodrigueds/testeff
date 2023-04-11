@@ -19,16 +19,15 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MetodosUsuarios(),
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'App',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
         routes: {
-          RotasApp.HOME:(_) => EstadoCidade(),
-          RotasApp.ESTCID:(_) => CadastroUsuarios(),
-          RotasApp.FORMULARIO:(_) => Formulario()
+          RotasApp.HOME: (_) => EstadoCidade(),
+          RotasApp.ESTCID: (_) => CadastroUsuarios(),
+          RotasApp.FORMULARIO: (_) => Formulario()
         },
-        
       ),
     );
   }
