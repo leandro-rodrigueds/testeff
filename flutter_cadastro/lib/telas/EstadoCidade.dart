@@ -139,15 +139,39 @@ class _EstadoCidadeState extends State<EstadoCidade> {
                       );
                     },
                   ),
-                  IconButton(
+                  Column(
+                  children: [
+                   IconButton(
                     color: Colors.grey,
-                    icon: Icon(Icons.arrow_circle_right_outlined),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(RotasApp.ESTCID);
-                    },
+                 icon: Icon(Icons.arrow_circle_right_outlined),
+                 onPressed: () {
+                  if (estadoSelecionado != null && cidadeSelecionada != null) {
+                  Navigator.of(context).pushNamed(RotasApp.ESTCID);
+                  } else {
+                    showDialog(
+                    context: context,
+                     builder: (BuildContext context) {
+                      return AlertDialog(
+                      title: Text('Aviso'),
+                      content: Text('Insira cidade e estado'),
+                       actions: <Widget>[
+                        TextButton(
+                        child: Text('OK'),
+                         onPressed: () {
+                          Navigator.of(context).pop();
+                            },
+                           ),
+                          ],
+                         );
+                        },
+                       );
+                      }
+                     },
+                    ),
+                    Text('Estado: $estadoSelecionado'),
+                    Text('Cidade: $cidadeSelecionada'),
+                    ],
                   ),
-                  Text('Estado: $estadoSelecionado'),
-                  Text('Cidade: $cidadeSelecionada'),
                 ],
               ),
             ),
