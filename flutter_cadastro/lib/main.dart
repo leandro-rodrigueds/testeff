@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cadastro/provider/metodos_usuario.dart';
 import 'package:flutter_cadastro/rotas/rotas_app.dart';
 import 'package:flutter_cadastro/telas/cadastroUsuarios.dart';
+import 'package:flutter_cadastro/telas/configuracoes.dart';
 import 'package:flutter_cadastro/telas/formulario.dart';
 import 'package:flutter_cadastro/telas/EstadoCidade.dart';
 import 'package:provider/provider.dart';
@@ -21,12 +22,14 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'App',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.green,
         ),
         routes: {
+
           RotasApp.HOME: (_) => EstadoCidade(),
           RotasApp.ESTCID: (_) => CadastroUsuarios(),
-          RotasApp.FORMULARIO: (_) => Formulario()
+          RotasApp.FORMULARIO: (_) => Formulario(),
+          RotasApp.CONFIG: (_) => Configuracoes()
         },
       ),
     );

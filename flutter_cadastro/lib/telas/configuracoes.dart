@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../provider/metodos_usuario.dart';
 //ALT + Shift + f para organizar o codigo
 
-class CadastroUsuarios extends StatelessWidget {
+class Configuracoes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MetodosUsuarios usuarios = Provider.of<MetodosUsuarios>(context);

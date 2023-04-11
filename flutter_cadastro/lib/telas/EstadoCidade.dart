@@ -62,7 +62,7 @@ class _EstadoCidadeState extends State<EstadoCidade> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.green,
         title: Text('ESTADO E CIDADE'),
       ),
       body: Container(
@@ -74,6 +74,7 @@ class _EstadoCidadeState extends State<EstadoCidade> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: Color.fromARGB(255, 0, 0, 0),
+                      
                     ),
                     child: Text('Escolher estado'),
                     onPressed: () {
