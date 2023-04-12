@@ -1,44 +1,70 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter_cadastro/modelos/usuario.dart';
-import 'package:flutter_cadastro/provider/metodos_usuario.dart';
-import 'package:flutter_cadastro/telas/cadastroUsuarios.dart';
+import '../modelos/usuario.dart';
+import '../provider/metodos_usuario.dart';
+import '../rotas/rotas_app.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
 
-import '../rotas/rotas_app.dart';
+class BlocoUsuarios extends StatelessWidget {
 
-class BlocoUsuario extends StatelessWidget {
   final Usuario usuario;
-  const BlocoUsuario(this.usuario);
+
+  //construtor
+  const BlocoUsuarios(this.usuario);
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
+    
+    return ListTile( //bloco com as posições pré definidas
       title: Text(usuario.nomeAluno),
       subtitle: Text(usuario.nomeMae),
-      trailing: Container(
+      
+      trailing: Container(//para deixar os botoes com espaço fixo
         width: 100,
         child: Row(
-          children: <Widget>[
-            IconButton(
-              icon: Icon(Icons.edit),
-              color: Colors.orange,
-              onPressed: () {
-                Navigator.of(context).pushNamed(
-                  RotasApp.FORMULARIO
-                  //arguments: usuario,
-                );
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.delete),
-              color: Colors.redAccent,
-              onPressed: () {
-                Provider.of <MetodosUsuarios> (context, listen: false).remove(usuario);
-              },
-            ),
-          ],
+        children: <Widget>[
+          IconButton( 
+            icon: Icon(Icons.edit), 
+            color: Colors.orange,
+            onPressed: (){
+              Navigator.of(context).pushNamed(
+                RotasApp.FORMULARIO,
+                arguments: usuario
+              );
+            },
+          ),
+          IconButton( 
+            icon: Icon(Icons.delete), 
+            color: Colors.red,
+            onPressed: (){
+              showDialog(
+                context: context, 
+                builder: (ctx) => AlertDialog(
+                  title: Text('Excluir Aluno'),
+                  content: Text('Tem certeza ?'),
+                  actions: <Widget>[
+                    FloatingActionButton(
+                      onPressed: (){
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Não'),
+                      ),
+                      FloatingActionButton(
+                      onPressed: (){
+                        Provider.of <TrataUsuario>(context, listen: false).removeAluno(usuario);
+                      },
+                      child: Text('Sim'),
+                      ),
+                  ],
+                )
+              );
+            }
+          ),
+        ],
         ),
       ),
     );

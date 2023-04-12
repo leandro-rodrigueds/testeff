@@ -1,29 +1,28 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_cadastro/dados/dados_usuarios.dart';
-import 'package:flutter_cadastro/modelos/usuario.dart';
+import 'package:flutter/widgets.dart';
+import '../dados/dados_usuarios.dart';
+import '../modelos/usuario.dart';
 
-class MetodosUsuarios with ChangeNotifier {
-  final Map<String, Usuario> _items = {...DADOS_USUARIOS};
+class TrataUsuario with ChangeNotifier{
+  final Map <String,Usuario> _items = {...DADOS_USUARIOS};
 
-  List<Usuario> get all {
+  List<Usuario> get all{
+    //cria um clone da lista para os usuarios não possa modificar os arquivos diretamente, só adicionando quando o metodo adicionar determinado item for chamado 
     return [..._items.values];
   }
 
-  //
-  int get count {
+  int get listaElementos{
     return _items.length;
   }
 
-  Usuario byIndex(int i) {
+  Usuario indice(int i){
     return _items.values.elementAt(i);
   }
 
-  //put +- a auteração do usuario
-  void put(Usuario usuario) {
-    if (usuario == null) {
+  void adicionaAluno(Usuario usuario){
+    if(usuario == null){
       return;
     }
-
+    //putIfAbsent insere se não estiver dentro
     if (usuario.nomeAluno != null &&
         usuario.nomeAluno.isNotEmpty &&
         _items.containsKey(usuario.nomeAluno)) {
@@ -31,6 +30,7 @@ class MetodosUsuarios with ChangeNotifier {
           usuario.nomeAluno,
           (_) =>
               Usuario(nomeAluno: usuario.nomeAluno, nomeMae: usuario.nomeMae));
+       notifyListeners();
     } else {
       //Adicionar
       _items.putIfAbsent(
@@ -39,15 +39,23 @@ class MetodosUsuarios with ChangeNotifier {
                 nomeAluno: usuario.nomeAluno,
                 nomeMae: usuario.nomeMae,
               ));
-
+      //Adiciona na interface grafica
       notifyListeners();
     }
   }
 
-  void remove(Usuario usuario){
-    if(usuario != null && usuario.nomeAluno != null){
+  void editaAluno(Usuario usuario){
+      _items.update(usuario.nomeAluno, (_) => Usuario(
+        nomeAluno: usuario.nomeAluno, 
+        nomeMae: usuario.nomeMae));
+        notifyListeners();
+  }
+
+  void removeAluno(Usuario usuario){
+     if(usuario != null && usuario.nomeAluno != null){
       _items.remove(usuario.nomeAluno);
       notifyListeners();
     }
   }
+
 }

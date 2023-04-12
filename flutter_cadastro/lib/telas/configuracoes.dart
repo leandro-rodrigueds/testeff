@@ -9,7 +9,7 @@ import '../provider/metodos_usuario.dart';
 class Configuracoes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final MetodosUsuarios usuarios = Provider.of<MetodosUsuarios>(context);
+    final TrataUsuario usuarios = Provider.of<TrataUsuario>(context);
 
     const _currentindex = 2;
 

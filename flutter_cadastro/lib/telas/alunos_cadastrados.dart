@@ -6,10 +6,11 @@ import 'package:provider/provider.dart';
 import '../provider/metodos_usuario.dart';
 //ALT + Shift + f para organizar o codigo
 
-class CadastroUsuarios extends StatelessWidget {
+class ListaUsuarios extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final MetodosUsuarios usuarios = Provider.of<MetodosUsuarios>(context);
+    //Nageva no contesto para pegar para pegar um elemento 
+    final TrataUsuario usuario = Provider.of(context);
 
     const _currentindex = 0;
 
@@ -31,20 +32,23 @@ class CadastroUsuarios extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cadastro de Alunos'),
+        title: Text('Alunos Cadastrados'),
         actions: <Widget>[
           IconButton(
-            color: Colors.white,
             icon: Icon(Icons.add),
-            onPressed: () {
-              Navigator.of(context).pushNamed(RotasApp.FORMULARIO);
-            },
-          ),
+            onPressed: (){
+              Navigator.of(context).pushNamed(
+                RotasApp.FORMULARIO
+              );
+            }, 
+        ),
         ],
       ),
-      body: ListView.builder(
-        itemCount: usuarios.count,
-        itemBuilder: (ctx, i) => BlocoUsuario(usuarios.byIndex(i)),
+      body: ListView.builder(//cria uma lista
+        // itemCount quantos intes eu tenho q mostrar na list
+        itemCount: usuario.listaElementos,
+       itemBuilder: (ctx, i)=> BlocoUsuarios(usuario.indice(i)//Acessa o elemento
+      ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

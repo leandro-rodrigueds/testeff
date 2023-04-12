@@ -1,85 +1,96 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cadastro/modelos/usuario.dart';
-import 'package:flutter_cadastro/provider/metodos_usuario.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
-import 'package:sqflite/sqflite.dart';
+import '../modelos/usuario.dart';
+import '../provider/metodos_usuario.dart';
 
 class Formulario extends StatelessWidget {
   final _form = GlobalKey<FormState>();
-  final Map<String, String> _informacoesUsuarios = {};
+  final Map <String, String> _dadosForm = {};
 
-  void _dadosFormolario(Usuario usuario){
+  void _carregaDadosFormulario(Usuario usuario){
     if(usuario != null){
-    _informacoesUsuarios['nomeAluno'] = usuario.nomeAluno;
-    _informacoesUsuarios['nomeMae'] = usuario.nomeMae;
-  }
+      _dadosForm['nomeAluno'] = usuario.nomeAluno;
+      _dadosForm['nomeMae'] = usuario.nomeMae;
     }
-    
+
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    final usuario = ModalRoute.of(context)?.settings.arguments as Usuario;
-
-    _dadosFormolario(usuario);
+    //Pega dados passado via roda 
+    //problema ao adicionar novo usuario por ele estar nulo 
+    // final usuario = ModalRoute.of(context)?.settings.arguments as Usuario;
+    
+    // _carregaDadosFormulario(usuario);
+    //print(usuario.nomeAluno);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Informações do Usuarios'),
-        actions: <Widget>[
+        title: Text('Cadastra Aluno'),
+        actions: <Widget> [
           IconButton(
-            icon: Icon(Icons.save),
-            onPressed: () {
+            icon: Icon(Icons.save), 
+            onPressed: (){
               final isValido = _form.currentState!.validate();
 
-              if (isValido) {
+              if(isValido){
                 _form.currentState?.save();
-
-                Provider.of<MetodosUsuarios>(context, listen: false)
-                    .put(Usuario(
-                  nomeAluno: '',
-                  nomeMae: '',
-                 //nomeAluno: _informacoesUsuarios['nomeAluno'],
-                 //nomeMae: _informacoesUsuarios['nomeMae'],
-                ),
-              );
+                Provider.of <TrataUsuario>(context, listen: false).adicionaAluno(Usuario(
+                  nomeAluno: _dadosForm['nomeAluno']!, 
+                  nomeMae: _dadosForm['nomeMae']!,));
+                 // nomeAluno: '',
+                 // nomeMae:'',
+               // ));
 
                 Navigator.of(context).pop();
               }
-            },
-          )
+
+              
+            })
         ],
       ),
       body: Padding(
         padding: EdgeInsets.all(15),
         child: Form(
+          //Associa _form ao formulario
           key: _form,
           child: Column(
             children: <Widget>[
               TextFormField(
-                initialValue: _informacoesUsuarios['nomeAluno'],
-                decoration: InputDecoration(labelText: 'Nome do aluno:'),
+                initialValue: _dadosForm['nomeAluno'],
+                decoration: InputDecoration(labelText: 'Nome do Aluno'),
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Nome invalido';
+                  if(value == null || value.isEmpty){
+                    return 'Informe o nome do aluno'; 
                   }
-                  if (value.trim().length < 10) {
-                    return 'Nome Invalido';
+                  if(value.trim().length < 7){
+                    return 'Informe o nome do aluno completo'; 
                   }
                   return null;
                 },
-                onSaved: (value) =>
-                    _informacoesUsuarios['nomeAluno'] = value!, //!esta diferente
+                onSaved: (value) =>_dadosForm['nomeUsuario'] = value!,
+              
               ),
               TextFormField(
-                initialValue: _informacoesUsuarios['nomeMae'],
-                decoration: InputDecoration(labelText: 'Nome da Mãe:'),
-                onSaved: (value) => _informacoesUsuarios['nomeMae'] = value!,
-              ),
+                initialValue: _dadosForm['nomeMae'],
+                decoration: InputDecoration(labelText: 'Nome da Mae'),
+                validator: (value) {
+                  if(value == null || value.isEmpty){
+                    return 'Informe o nome da mãe do aluno'; 
+                  }
+                  if(value.trim().length < 7){
+                    return 'Informe o nome completo da mãe do aluno completo'; 
+                  }
+                  return null;
+                },
+                onSaved: (value) =>_dadosForm['nomeMae'] = value!,
+              )
             ],
+            )
           ),
         ),
-      ),
     );
   }
 }
