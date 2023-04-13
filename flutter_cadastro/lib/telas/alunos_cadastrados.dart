@@ -17,7 +17,7 @@ class ListaUsuarios extends StatelessWidget {
     void _onItemTapped(int index) {
       if (_currentindex != 0) {
         if (index == 0) {
-          Navigator.of(context).pushNamed(RotasApp.ESTCID);
+          Navigator.of(context).pushNamed(RotasApp.ALUNOS);
         }
       }
 

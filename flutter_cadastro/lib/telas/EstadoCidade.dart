@@ -10,6 +10,7 @@ class EstadoCidade extends StatefulWidget {
 class _EstadoCidadeState extends State<EstadoCidade> {
   String? estadoSelecionado;
   String? cidadeSelecionada;
+  
 
   final List<String> estados = [
     'Minas Gerais',
@@ -64,6 +65,7 @@ class _EstadoCidadeState extends State<EstadoCidade> {
       appBar: AppBar(
         backgroundColor: Colors.green,
         title: Text('ESTADO E CIDADE'),
+        
       ),
       body: Container(
         child: Stack(
@@ -147,7 +149,7 @@ class _EstadoCidadeState extends State<EstadoCidade> {
                  icon: Icon(Icons.arrow_circle_right_outlined),
                  onPressed: () {
                   if (estadoSelecionado != null && cidadeSelecionada != null) {
-                  Navigator.of(context).pushNamed(RotasApp.ESTCID);
+                  Navigator.of(context).pushReplacementNamed(RotasApp.ALUNOS);
                   } else {
                     showDialog(
                     context: context,

@@ -25,7 +25,7 @@ class Configuracoes extends StatelessWidget {
       }
 
       if (index == 0) {
-        Navigator.of(context).pushNamed(RotasApp.ESTCID);
+        Navigator.of(context).pushNamed(RotasApp.ALUNOS);
       }
     }
 

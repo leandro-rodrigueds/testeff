@@ -21,17 +21,19 @@ class MyApp extends StatelessWidget {
       //Esse provider controla a parte de usuario e cria uma nova instacia na classe
       create: (context) => new TrataUsuario(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'App',
         theme: ThemeData(
           primarySwatch: Colors.green,
         ),
         routes: {
           RotasApp.HOME: (_) => EstadoCidade(),
-          RotasApp.ESTCID: (_) => ListaUsuarios(),
+          RotasApp.ALUNOS: (_) => ListaUsuarios(),
           RotasApp.FORMULARIO: (_) => Formulario(),
           RotasApp.CONFIG: (_) => Configuracoes()
         },
       ),
     );
   }
+  
 }
